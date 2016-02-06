@@ -1,0 +1,94 @@
+.blue-bg{
+  background-color: #14214d;
+}
+
+#login-form{
+  width:90%;
+  max-width:800px;
+  margin: 10% auto;
+  background-color: white;
+  height: 500px;
+}
+#login-form::after{
+  content:"";
+  display:block;
+  clear:both;
+}
+
+#login-form > div{
+  float:left;
+}
+
+#login-form-info{
+  height:100%;
+  width:40%;
+  background-color: #44c7f5;
+}
+
+#form-container{
+  width: 60%;
+  font-size: 1.25em;
+}
+#form-container form{
+  width:90%;
+  margin: 0 auto;
+}
+
+#login-form h1{
+  margin-left: 5%;
+}
+#login-form h1.white-text{
+  margin-top: 35%;
+}
+
+#form-container input[type="text"], 
+#form-container input[type="password"],
+#form-container input[type="email"]{
+  width:95%;
+  font-size: 1.25em;
+  display:block;
+  margin: 0 auto;
+}
+#form-container .btn{
+  float:right;
+}
+
+*{
+  font-family: 'Trebuchet MS';
+}
+
+@media screen and (max-width: 768px){
+  #login-form-info{
+    display:none;
+  }
+}
+
+.btn {
+  background: #ffffff;
+  background-image: -webkit-linear-gradient(top, #ffffff, #ffffff);
+  background-image: -moz-linear-gradient(top, #ffffff, #ffffff);
+  background-image: -ms-linear-gradient(top, #ffffff, #ffffff);
+  background-image: -o-linear-gradient(top, #ffffff, #ffffff);
+  background-image: linear-gradient(to bottom, #ffffff, #ffffff);
+  -webkit-border-radius: 28;
+  -moz-border-radius: 28;
+  border-radius: 28px;
+  font-family: Arial;
+  color: #43494f;
+  font-size: 20px;
+  padding: 10px 20px 10px 20px;
+  border: solid #0092ed 4px;
+  text-decoration: none;
+  margin-top: 20px;
+  transition: background 1s, color 1s; 
+}
+
+.btn:hover {
+  background: #a6ddff;
+  text-decoration: none;
+  color: white;
+}
+
+.white-text{
+  color:white;
+}
