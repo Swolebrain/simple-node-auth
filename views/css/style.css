@@ -92,3 +92,10 @@
 .white-text{
   color:white;
 }
+
+#error-message{
+  text-align: center;
+  padding: 25px;
+  color: darkred;
+  display: none;
+}
