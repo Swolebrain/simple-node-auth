@@ -16,15 +16,15 @@
       </div>
       <div id="form-container">
         <h1>Register now</h1>
-        <form method="POST">
+        <form method="POST" action="/">
           <label for="username">User Name:</label>
-          <input type="text" id="username">
+          <input type="text" id="username" name="username">
           <label for="password">Password:</label>
-          <input type="password" id="password">
+          <input type="password" id="password" name="password">
           <label for="password-conf">Confirm Password:</label>
           <input type="password" id="password-conf">
           <label for="email">e-mail</label>
-          <input type="email" id="email">
+          <input type="email" id="email" name="email">
           <button type="submit" class="btn">Register</button>
         </form>s
         <div id="error-message">Please fill the whole thing out</div>
