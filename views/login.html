@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="css/style.css">
   </head>
   <body class="blue-bg">
-    <div id="registration-form">
+    <div id="login-form">
       <div id="login-form-info">
         <h1 class="white-text">Welcome to where wings take dream</h1>
         <ul class="white-text">
@@ -15,17 +15,14 @@
         </ul>
       </div>
       <div id="form-container">
-        <h1>Register now</h1>
-        <form method="POST" action="/">
+        <h1>Log in please</h1>
+        <form method="POST" action="/login">
           <label for="username">User Name:</label>
           <input type="text" id="username" name="username">
           <label for="password">Password:</label>
           <input type="password" id="password" name="password">
-          <label for="password-conf">Confirm Password:</label>
-          <input type="password" id="password-conf">
-          <label for="email">e-mail</label>
-          <input type="email" id="email" name="email">
-          <button type="submit" class="btn">Register</button>
+          
+          <button type="submit" class="btn">Log In</button>
         </form>
         <div id="error-message">Please fill the whole thing out</div>
       </div>

@@ -4,13 +4,25 @@ var app = express();
 var path = require('path');
 var bodyParser = require('body-parser');
 var crypto = require('crypto');
+var session = require("express-session");
+var mysql = require('mysql');
 
-var userStore = {
-  hugo: {hashedPassword: "7c6a180b36896a0a8c02787eeafb0e4c",
-         email: "hgxmiami00@gmail.com"},
-  kiki: {hashedPassword: "6cb75f652a9b52798eb6cf2201057c73",
-         email: "kikiqianlin@gmail.com"}
-};
+
+var connection = mysql.createConnection({
+	host: 'localhost',
+	user: 'root',
+	password: '',
+	database: 'authentication'
+});
+connection.connect();
+
+
+app.use(session({
+  secret: 'qwertyuiop123567890',
+  resave: false
+})); /*This is not really great for production environment
+    because it is impossible to scale your sessions to multiple
+    servers. In production, you need a DB session store. */
 
 app.use( express.static('views') );
 app.use(   bodyParser.urlencoded( {extended: false} )   );
@@ -18,7 +30,21 @@ app.use(   bodyParser.urlencoded( {extended: false} )   );
 // http://expressjs.com/en/starter/static-files.html
 
 app.get("/", function(req, res){
-  res.sendFile(path.resolve("views/register.html"));
+  if (req.session.isLoggedIn)
+    res.sendFile(path.resolve("password-protected-views/members.html"));
+  else
+    res.sendFile(path.resolve("views/register.html"));
+});
+
+app.get("login", function(req, res){
+  res.sendFile(path.resolve("views/login.html"));
+});
+
+app.get("/members", function(req, res){
+  if (req.session.isLoggedIn)
+    res.sendFile(path.resolve("password-protected-views/members.html"));
+  else
+    res.sendFile(path.resolve("views/login.html"));
 });
 
 
@@ -30,21 +56,74 @@ app.post("/", function(req,res){
     res.end("Username and password both required");
     return;
   }
-  var hash = crypto
+  //this is to protect from SQL injection:
+  req.body.username =  connection.escape(req.body.username);
+  req.body.password =  connection.escape(req.body.password);
+  req.body.email =  connection.escape(req.body.email);
+  
+  var hash = "'"+crypto
       .createHash("md5")
       .update(req.body.password)
-      .digest('hex');
+      .digest('hex')+"'";
   
-  var userNameInRequest = req.body.username;
-  userStore[userNameInRequest] = { hasedPassword: hash,
-                                  email: req.body.email};
-  res.end('Thanks for registering ' + userNameInRequest);
-  console.log(JSON.stringify(userStore));
+  var queryStr = "INSERT INTO users VALUES ("+
+                  req.body.username+", "+
+                  hash  +  ", "+
+                  req.body.email+")";
+  console.log(queryStr);
+  connection.query(queryStr, function(err){
+    if (err){
+      res.end(JSON.stringify(err));
+    }
+    else{
+      req.session.isLoggedIn = true;
+      res.redirect("/members");
+    }
+  });
+  
+  
+});
+
+app.post("/login", function(req, res){
+  //if username doesnt exist in user store, return error
+  if (!req.body.username || !req.body.password){
+    res.end("Username and password required");
+    return;
+  }
+  req.body.username =  connection.escape(req.body.username);
+  req.body.password =  connection.escape(req.body.password);
+  var u = req.body.username;
+  var query = "SELECT * FROM users WHERE username="+u;
+  console.log("Issuing query: "+query);      
+  connection.query(query, function(err, rows){
+    if (err){
+      res.end(JSON.stringify(err));
+      return;
+    }
+    if (!rows || rows.length === 0){
+      res.end("No user was found with that username.");
+      return;
+    }
+    else{
+      var hash = crypto
+        .createHash("md5")
+        .update(req.body.password)
+        .digest('hex');
+      console.log(rows);
+      if (rows[0].hashedPassword === hash){
+        req.session.isLoggedIn = true;
+        console.log("User "+req.body.username+" logged in");
+        res.redirect("/members");
+      }
+      else{
+        res.end("Wrong password!");
+      }
+    }
+  });
+  
 });
 
 
 
 app.listen(port);
 console.log("Server listening at port "+port);
-console.log("Current user store is :");
-console.log(JSON.stringify(userStore));

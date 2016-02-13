@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Learn Coding with FVI</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="css/materialize.min.css">
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+    <ul id="nav-mobile" class="side-nav fixed" style="width: 15%;">
+      <li class="logo">
+        <a id="logo-container" href="http://www.fvi.edu/" class="brand-logo">
+          <img src="img/fvi-logo-only.png" alt="FVI you my boy blue" class="responsive-img">
+        </a>
+      </li>
+    </ul> 
+    <div class="container">
+      <h1 id="problem-title" class="center-align">FVI Practice APP (Still in development)</h1>
+      <div class="row">
+        <div id="problem-div" class="col s10 offset-s1 m5">
+          <p></p>
+          <div id="textarea-container" class="input-field col s12">
+            <textarea id="textarea-solution" class="materialize-textarea" rows="24" cols="80"></textarea>
+            <label for="textarea-solution">Solution</label>
+          </div>
+          <div class="btn" id="evalSolution">Evaluate Solution<i class="material-icons right">send</i></div>
+        </div>
+        <div id="tests-div" class="col s10 offset-s1 m7">
+          <table class="striped">
+            <col style="width:40%">
+            <col style="width:30%">
+            <col style="width:30%">
+            <thead>
+              <tr>
+                <th>Test</th>
+                <th>Result</th>
+                <th>Expected</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/js/materialize.min.js"></script>
+    <script src="js/prod.js"></script>
+  </body>
+</html>

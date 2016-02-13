@@ -2,20 +2,20 @@
   background-color: #14214d;
 }
 
-#login-form{
+#login-form, #registration-form{
   width:90%;
   max-width:800px;
   margin: 10% auto;
   background-color: white;
   height: 500px;
 }
-#login-form::after{
+#login-form::after, #registration-form::after{
   content:"";
   display:block;
   clear:both;
 }
 
-#login-form > div{
+#login-form > div, #registration-form > div{
   float:left;
 }
 
@@ -34,10 +34,10 @@
   margin: 0 auto;
 }
 
-#login-form h1{
+#login-form h1, #registration-form h1{
   margin-left: 5%;
 }
-#login-form h1.white-text{
+#login-form h1.white-text, #registration-form h1.white-text{
   margin-top: 35%;
 }
 
@@ -98,4 +98,43 @@
   padding: 25px;
   color: darkred;
   display: none;
+}
+
+li.logo:hover{
+    background-color:white !important;
+}
+li.logo{
+    height: 128px;
+    padding:0;
+}
+.side-nav li a{
+    height:44px;
+    line-height: 44px;
+    padding-left:0px !important;
+    padding-right:0px !important;
+}
+#textarea-solution{
+    /*border:2px solid rgba(0,0,225,0.4);*/
+    margin-top:20px;
+    font-family: "Courier New", Courier, monospace;
+    resize: none !important;
+    min-height: 300px;
+}
+#textarea-container label{
+    top:1.5rem; left:1.2rem;
+}
+
+label.active{
+    color: rgba(0,0,225,0.6) !important;
+}
+
+.btn{
+    
+}
+#problem-div{
+    padding-left:30px !important;
+}
+
+table, tr, td {
+  font-family: "Comic Sans MS", Terminal
 }
