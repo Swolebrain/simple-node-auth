@@ -40,6 +40,8 @@ app.get("login", function(req, res){
   res.sendFile(path.resolve("views/login.html"));
 });
 
+
+//this is the route you can copy for any new files
 app.get("/members", function(req, res){
   if (req.session.isLoggedIn)
     res.sendFile(path.resolve("password-protected-views/members.html"));
