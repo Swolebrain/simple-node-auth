@@ -19,7 +19,8 @@ connection.connect();
 
 app.use(session({
   secret: 'qwertyuiop123567890',
-  resave: false
+  resave: false,
+  saveUninitialized: false
 })); /*This is not really great for production environment
     because it is impossible to scale your sessions to multiple
     servers. In production, you need a DB session store. */
