@@ -37,7 +37,7 @@ app.get("/", function(req, res){
     res.sendFile(path.resolve("views/register.html"));
 });
 
-app.get("login", function(req, res){
+app.get("/login", function(req, res){
   res.sendFile(path.resolve("views/login.html"));
 });
 
