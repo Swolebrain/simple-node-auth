@@ -3,7 +3,7 @@ var express = require('express');
 var app = express();
 var path = require('path');
 var bodyParser = require('body-parser');
-var crypto = require('crypto');
+var bcrypt = require('bcryptjs');
 var session = require("express-session");
 var mysql = require('mysql');
 
@@ -64,10 +64,7 @@ app.post("/", function(req,res){
   req.body.password =  connection.escape(req.body.password);
   req.body.email =  connection.escape(req.body.email);
   
-  var hash = "'"+crypto
-      .createHash("md5")
-      .update(req.body.password)
-      .digest('hex')+"'";
+  var hash = `'${bcrypt.hashSync(req.body.password, 8)}'`;
   
   var queryStr = "INSERT INTO users VALUES ("+
                   req.body.username+", "+
@@ -108,12 +105,9 @@ app.post("/login", function(req, res){
       return;
     }
     else{
-      var hash = crypto
-        .createHash("md5")
-        .update(req.body.password)
-        .digest('hex');
+        
       console.log(rows);
-      if (rows[0].hashedPassword === hash){
+      if ( bcrypt.compareSync(req.body.password, rows[0].hashedPassword) ){
         req.session.isLoggedIn = true;
         console.log("User "+req.body.username+" logged in");
         res.redirect("/members");
